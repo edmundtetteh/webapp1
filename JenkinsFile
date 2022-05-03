@@ -1,0 +1,23 @@
+pipeline {
+    agent any 
+    stages {
+        stage('clone the repo') {
+            steps {
+                echo 'clone the repo'
+                sh 'rm -fr webapp1'
+                sh 'git clone https://github.com/edmundtetteh/webapp1.git'
+            }
+        }
+stage('push repo to remote host') {
+            steps {
+                echo 'connect to remote host and pull down the latest version'
+                sh 'ssh -i ~/Downloads/Jenkins-renew.pem ubuntu@ec2-3-85-210-51 sudo git -C /var/lib/jenkins/workspace/webapp/webapp1 pull'
+            }
+        }
+        stage('stage 3') {
+            steps {
+                echo 'stage 3 here'
+            }
+        }
+    }
+}
